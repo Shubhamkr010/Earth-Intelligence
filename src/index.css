@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap');
+@import 'maplibre-gl/dist/maplibre-gl.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body,
+  #root {
+    @apply h-full w-full m-0 p-0 overflow-hidden bg-space text-zinc-200 font-sans antialiased;
+  }
+
+  ::selection {
+    @apply bg-neon/30 text-white;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-neon/30 rounded-full;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/[0.04] backdrop-blur-xl border border-white/10 shadow-panel;
+  }
+  .hud-label {
+    @apply font-mono text-[10px] uppercase tracking-[0.25em] text-neon/70;
+  }
+}
+
+.maplibregl-ctrl-attrib {
+  @apply !bg-black/40 !text-zinc-500 font-mono text-[10px];
+}
+.maplibregl-ctrl-attrib a {
+  @apply !text-zinc-400;
+}
+.maplibregl-canvas {
+  outline: none;
+}
+
+input[type='range'].timeline {
+  @apply appearance-none h-1 rounded-full bg-white/10 cursor-pointer;
+  background-image: linear-gradient(#22d3ee, #22d3ee);
+  background-repeat: no-repeat;
+}
+input[type='range'].timeline::-webkit-slider-thumb {
+  @apply appearance-none w-3.5 h-3.5 rounded-full bg-neon;
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.8);
+}
+input[type='range'].timeline::-moz-range-thumb {
+  @apply w-3.5 h-3.5 rounded-full bg-neon border-0;
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.8);
+}
