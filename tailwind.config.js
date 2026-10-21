@@ -4,37 +4,15 @@ export default {
   theme: {
     extend: {
       colors: {
-        space: '#030303',
-        panel: '#0a0c10',
-        neon: {
-          DEFAULT: '#22d3ee',
-          dim: '#0891b2',
-          glow: 'rgba(34, 211, 238, 0.45)',
-        },
+        ocean: { 950: '#0A1C30', 900: '#0F2A45', 800: '#163A5C', 700: '#1F4A72' },
+        frost: '#E8F0F4', mist: '#9DB3C2', citylight: '#F5A524',
+        tide: '#5FA8C9', kelp: '#4CB88A', ember: '#FF6B4A', ice: '#BFE3F2',
       },
       fontFamily: {
-        mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
-        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        ui: ['Schibsted Grotesk', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        data: ['Geist Mono', 'ui-monospace', 'SFMono-Regular', 'monospace'],
       },
-      boxShadow: {
-        neon: '0 0 0 1px rgba(34,211,238,0.6), 0 0 18px rgba(34,211,238,0.45), 0 0 48px rgba(34,211,238,0.2)',
-        'neon-soft': '0 0 0 1px rgba(34,211,238,0.25), 0 0 12px rgba(34,211,238,0.15)',
-        panel: '0 10px 40px rgba(0,0,0,0.6)',
-      },
-      keyframes: {
-        scan: {
-          '0%': { transform: 'translateY(-100%)' },
-          '100%': { transform: 'translateY(100vh)' },
-        },
-        pulseDot: {
-          '0%, 100%': { opacity: 1, transform: 'scale(1)' },
-          '50%': { opacity: 0.4, transform: 'scale(0.7)' },
-        },
-      },
-      animation: {
-        scan: 'scan 9s linear infinite',
-        pulseDot: 'pulseDot 1.6s ease-in-out infinite',
-      },
+      borderRadius: { panel: '16px', card: '16px', control: '10px' },
     },
   },
   plugins: [],

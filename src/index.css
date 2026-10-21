@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap');
 @import 'maplibre-gl/dist/maplibre-gl.css';
 
 @tailwind base;
@@ -6,53 +6,145 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    color-scheme: dark;
+    --ocean-950: #0A1C30;
+    --ocean-900: #0F2A45;
+    --ocean-800: #163A5C;
+    --ocean-700: #1F4A72;
+    --frost: #E8F0F4;
+    --mist: #9DB3C2;
+    --citylight: #F5A524;
+    --citylight-soft: rgba(245, 165, 36, 0.14);
+    --tide: #5FA8C9;
+    --kelp: #4CB88A;
+    --ember: #FF6B4A;
+    --ice: #BFE3F2;
+    --font-ui: 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif;
+    --font-data: 'Geist Mono', ui-monospace, 'SF Mono', monospace;
+    --radius-panel: 16px;
+    --radius-card: 16px;
+    --radius-control: 10px;
+    --radius-chip: 999px;
+    --shadow-float: 0 1px 0 0 rgba(232, 240, 244, 0.05) inset, 0 14px 44px -8px rgba(2, 10, 20, 0.72), 0 2px 10px rgba(2, 10, 20, 0.45);
+    --border-subtle: 1px solid rgba(31, 74, 114, 0.45);
+    --border-strong: 1px solid #1F4A72;
+  }
+
   html,
   body,
   #root {
-    @apply h-full w-full m-0 p-0 overflow-hidden bg-space text-zinc-200 font-sans antialiased;
+    @apply h-full w-full m-0 p-0 overflow-hidden;
+    background: var(--ocean-950);
+    color: var(--frost);
+    font-family: var(--font-ui);
+    -webkit-font-smoothing: antialiased;
   }
 
   ::selection {
-    @apply bg-neon/30 text-white;
+    background: var(--citylight-soft);
+    color: var(--frost);
   }
 
   ::-webkit-scrollbar {
     width: 6px;
   }
   ::-webkit-scrollbar-thumb {
-    @apply bg-neon/30 rounded-full;
+    background: rgba(157, 179, 194, 0.35);
+    border-radius: 999px;
   }
 }
 
 @layer components {
-  .glass {
-    @apply bg-white/[0.04] backdrop-blur-xl border border-white/10 shadow-panel;
+  .surface {
+    background: rgba(15, 42, 69, 0.88);
+    backdrop-filter: blur(14px) saturate(1.1);
+    border: var(--border-subtle);
+    box-shadow: var(--shadow-float);
   }
-  .hud-label {
-    @apply font-mono text-[10px] uppercase tracking-[0.25em] text-neon/70;
+  .font-data {
+    font-family: var(--font-data);
+    font-variant-numeric: tabular-nums;
+  }
+  .field-label {
+    color: var(--mist);
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 500;
+  }
+  .control-button {
+    border: var(--border-strong);
+    border-radius: var(--radius-control);
+    transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+  }
+  .control-button:hover {
+    background: var(--ocean-800);
+    border-color: var(--mist);
+  }
+  .citylight-focus:focus-visible {
+    outline: 3px solid var(--citylight-soft);
+    border-color: var(--citylight);
+  }
+  .maplibregl-ctrl-attrib {
+    background: rgba(10, 28, 48, 0.7) !important;
+    color: var(--mist) !important;
+    font: 10px var(--font-data) !important;
+  }
+  .maplibregl-ctrl-attrib a { color: var(--frost) !important; }
+  .maplibregl-canvas { outline: none; }
+  .maplibregl-ctrl-bottom-left, .maplibregl-ctrl-bottom-right { z-index: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
-.maplibregl-ctrl-attrib {
-  @apply !bg-black/40 !text-zinc-500 font-mono text-[10px];
-}
-.maplibregl-ctrl-attrib a {
-  @apply !text-zinc-400;
-}
-.maplibregl-canvas {
-  outline: none;
+@keyframes leader {
+  from { stroke-dashoffset: 220; }
+  to { stroke-dashoffset: 0; }
 }
 
-input[type='range'].timeline {
-  @apply appearance-none h-1 rounded-full bg-white/10 cursor-pointer;
-  background-image: linear-gradient(#22d3ee, #22d3ee);
-  background-repeat: no-repeat;
+@keyframes pinring {
+  from { transform: scale(1); opacity: 0.8; }
+  to { transform: scale(1.6); opacity: 0; }
 }
-input[type='range'].timeline::-webkit-slider-thumb {
-  @apply appearance-none w-3.5 h-3.5 rounded-full bg-neon;
-  box-shadow: 0 0 10px rgba(34, 211, 238, 0.8);
+
+@keyframes cardin {
+  from { transform: scale(0.98); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }
-input[type='range'].timeline::-moz-range-thumb {
-  @apply w-3.5 h-3.5 rounded-full bg-neon border-0;
-  box-shadow: 0 0 10px rgba(34, 211, 238, 0.8);
+
+.orbital-enter {
+  animation: orbital-enter 400ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.globe-scene {
+  background: radial-gradient(ellipse at 50% 48%, rgba(95, 168, 201, 0.07), transparent 56%), var(--ocean-950);
+}
+
+.atmosphere-rim {
+  width: min(72vmin, 82vw);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(95, 168, 201, 0.12);
+  box-shadow: 0 0 22px 1px rgba(95, 168, 201, 0.1), inset 0 0 20px rgba(95, 168, 201, 0.03);
+}
+
+.map-canvas-socket,
+.map-canvas-socket .maplibregl-canvas-container,
+.map-canvas-socket .maplibregl-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes orbital-enter {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
